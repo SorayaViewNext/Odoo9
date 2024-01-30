@@ -6,6 +6,7 @@
         </menuitem>
         <menuitem id="propiedades_first_level_menu2" name="Configuración">
             <menuitem id="tipos_submenu" name="Tipos de inmuebles" action="tipos_inmuebles_action"/>
+            <menuitem id="etiquetas_submenu" name="Etiquetas de inmuebles" action="etiquetas_inmuebles_action"/>
         </menuitem>
     </menuitem>
 </odoo>

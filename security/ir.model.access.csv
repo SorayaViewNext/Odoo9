@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_propiedades_inmuebles,propiedades.inmuebles,model_propiedades_inmuebles,base.group_user,1,1,1,1
 access_tipos_inmuebles,tipos.inmuebles,model_tipos_inmuebles,base.group_user,1,1,1,1
+access_etiquetas_inmuebles,etiquetas.inmuebles,model_etiquetas_inmuebles,base.group_user,1,1,1,1

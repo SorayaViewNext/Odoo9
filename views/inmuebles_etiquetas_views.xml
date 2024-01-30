@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="svrc_etiquetas_inmuebles_action" model="ir.actions.act_window">
+        <field name="name">Listado de etiquetas para los inmuebles</field>
+        <field name="res_model">etiquetas.inmuebles</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="svrc_etiquetas_inmuebles_view_tree" model="ir.ui.view">
+        <field name="name">etiquetas.inmuebles.tree</field>
+        <field name="model">etiquetas.inmuebles</field>
+        <field name="arch" type="xml">
+            <tree string="Listado">
+                <field name="nombre"/>
+            </tree>
+        </field>
+    </record>
+    <record id="svrc_etiquetas_inmuebles_view_form" model="ir.ui.view">
+        <field name="name">etiquetas.inmuebles.form</field>
+        <field name="model">etiquetas.inmuebles</field>
+        <field name="arch" type="xml">
+            <form string="Registro">
+                <sheet>
+                    <group>
+                        <field name="nombre"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
