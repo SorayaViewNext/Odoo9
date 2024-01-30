@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="propiedades_menu_root" name="Propiedades inmobiliarias">
+        <menuitem id="propiedades_first_level_menu1" name="Anuncios">
+            <menuitem id="propiedades_submenu" name="Propiedades" action="propiedades_inmuebles_action"/>
+        </menuitem>
+        <menuitem id="propiedades_first_level_menu2" name="Configuración">
+            <menuitem id="tipos_submenu" name="Tipos de inmuebles" action="tipos_inmuebles_action"/>
+        </menuitem>
+    </menuitem>
+</odoo>

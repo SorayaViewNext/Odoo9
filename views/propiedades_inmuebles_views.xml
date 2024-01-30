@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="svrc_propiedades_inmuebles_action" model="ir.actions.act_window">
+        <field name="name">Listado de propiedades</field>
+        <field name="res_model">propiedades.inmuebles</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="svrc_propiedades_inmuebles_view_tree" model="ir.ui.view">
+        <field name="name">propiedades.inmuebles.tree</field>
+        <field name="model">propiedades.inmuebles</field>
+        <field name="arch" type="xml">
+            <tree string="Listado">
+                <field name="name"/>
+                <field name="codigo_postal"/>
+                <field name="dormitorios"/>
+                <field name="salon" string="Salón (m2)"/>
+                <field name="precio_esperado"/>
+                <field name="precio_venta"/>
+                <field name="fecha_disponibilidad"/>
+            </tree>
+        </field>
+    </record>
+    <record id="svrc_propiedades_inmuebles_view_form" model="ir.ui.view">
+        <field name="name">propiedades.inmuebles.form</field>
+        <field name="model">propiedades.inmuebles</field>
+        <field name="arch" type="xml">
+            <form string="Registro">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                        <field name="etiquetas_ids" widget="many2many_tags"/>
+                    </div>
+                    <group>
+                        <field name="codigo_postal"/>
+                        <field name="fecha_disponibilidad"/>
+                    </group>
+                    <group>
+                        <field name="precio_esperado"/>
+                        <field name="precio_venta"/>
+                    </group>
+                    <notebook>
+                        <page string="Descripción">
+                            <group>
+                                <field name="descripcion"/>
+                                <field name="dormitorios"/>
+                                <field name="salon"/>
+                                <field name="fachadas"/>
+                                <field name="garaje"/>
+                                <field name="jardin"/>
+                                <field name="area_jardin"/>
+                                <field name="orientacion_jardin"/>
+                            </group>
+                        </page>
+                        <page string="Otra información">
+                            <group>
+                                <field name="agente_id"/>
+                                <field name="cliente_id"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="svrc_propiedades_inmuebles_view_search" model="ir.ui.view">
+        <field name="name">propiedades.inmuebles.search</field>
+        <field name="model">propiedades.inmuebles</field>
+        <field name="arch" type="xml">
+            <search string="Búsqueda">
+                <field name="name"/>
+                <field name="codigo_postal"/>
+                <field name="precio_esperado"/>
+                <field name="dormitorios"/>
+                <field name="salon" string="(m2) del salón"/>
+                <field name="fachadas"/>
+                <separator/>
+                <filter string="Disponibles" name="disponibles" domain="['|', ('state', '-', 'nuevo'), ('state', '-', 'oferta_recibida')]"/>
+                <group expand="1" string="agrupar">
+                    <filter string="Código postal" name="codigo_postal" context="{'group_by':'codigo_postal'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>
