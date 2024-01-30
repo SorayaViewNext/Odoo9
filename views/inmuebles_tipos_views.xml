@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="svrc_tipos_inmuebles_action" model="ir.actions.act_window">
+        <field name="name">Listado de tipos de inmuebles</field>
+        <field name="res_model">tipos.inmuebles</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="svrc_tipos_inmuebles_view_tree" model="ir.ui.view">
+        <field name="name">tipos.inmuebles.tree</field>
+        <field name="model">tipos.inmuebles</field>
+        <field name="arch" type="xml">
+            <tree string="Listado">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="svrc_tipos_inmuebles_view_form" model="ir.ui.view">
+        <field name="name">tipos.inmuebles.form</field>
+        <field name="model">tipos.inmuebles</field>
+        <field name="arch" type="xml">
+            <form string="Listado">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -8,6 +8,7 @@
     ],
     'data': [
         'views/propiedades_inmuebles_views.xml',
+        'views/inmuebles_tipos_views.xml'
         'views/propiedades_menus.xml',
         'security/ir.model.access.csv',
     ],
