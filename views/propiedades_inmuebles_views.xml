@@ -11,6 +11,7 @@
         <field name="arch" type="xml">
             <tree string="Listado">
                 <field name="name"/>
+                <field name="tipos_id"/>
                 <field name="codigo_postal"/>
                 <field name="dormitorios"/>
                 <field name="salon" string="Salón (m2)"/>
@@ -31,6 +32,7 @@
                         <field name="etiquetas_ids" widget="many2many_tags"/>
                     </div>
                     <group>
+                        <field name="tipos_id"/>
                         <field name="codigo_postal"/>
                         <field name="fecha_disponibilidad"/>
                     </group>
@@ -68,6 +70,7 @@
         <field name="arch" type="xml">
             <search string="Búsqueda">
                 <field name="name"/>
+                <field name="tipos_id"/>
                 <field name="codigo_postal"/>
                 <field name="precio_esperado"/>
                 <field name="dormitorios"/>
