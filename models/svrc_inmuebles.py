@@ -1,4 +1,6 @@
-from odoo import fields, models
+import api
+from odoo import api, fields, models
+from odoo.exceptions import UserError
 # from datetime import timedelta
 
 class svrc_inmuebles(models.Model):
@@ -27,4 +29,43 @@ class svrc_inmuebles(models.Model):
     active = fields.Boolean(string='Activo', default=True)
     state = fields.Selection([('nuevo', 'Nuevo'), ('oferta_recibida', 'Oferta recibida'), ('oferta_aceptada',
                                                                                            'Oferta aceptada'), ('vendido', 'Vendido'), ('cancelado', 'Cancelado')], string='Estado', required=True, copy=False, default='nuevo')
+    area_total = fields.Integer(compute="_calcular_area_total", search="_search_area_total", string="Área total (m2)", store=True)
+    mejor_oferta = fields.Float(compute="_calcular_mejor_oferta", string='Mejor oferta')
+
+    @api.depends("salon", "area_jardin")
+    def _calcular_area_total(self):
+        for record in self:
+            record.area_total = record.salon + record.area_jardin
+
+    @api.depends("ofertas_ids.precio")
+    def _calcular_mejor_oferta(self):
+        for record in self:
+            if record.ofertas_ids:
+                record.mejor_oferta = max(record.ofertas_ids.mapped('precio'))
+            else:
+                record.mejor_oferta = 0
+
+    def _search_area_total(self, operator, value):
+        return [('area_total', operator, value)]
+
+    @api.onchange("jardin")
+    def _onchange_jardin(self):
+        if self.jardin:
+            self.area_jardin = 10
+            self.orientacion_jardin = 'norte'
+        else:
+            self.area_jardin = 0
+            self.orientacion_jardin = ''
+
+    def action_vender_propiedad(self):
+        if self.state == 'cancelado':
+            raise UserError("Las propiedades canceladas no pueden ser vendidas.")
+        else:
+            self.state = 'vendido'
+
+    def action_cancelar_propiedad(self):
+        if self.state == 'cancelado':
+            raise UserError("Las propiedades vendidas no pueden ser canceladas.")
+        else:
+            self.state = 'cancelado'
 

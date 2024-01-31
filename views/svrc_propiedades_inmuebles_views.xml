@@ -26,12 +26,17 @@
         <field name="model">propiedades.inmuebles</field>
         <field name="arch" type="xml">
             <form string="Registro">
+                <header>
+                    <button name="action_vender_propiedad" type="object" string="Vender"/>
+                    <button name="action_cancelar_propiedad" type="object" string="Cancelar"/>
+                </header>
                 <sheet>
                     <div class="oe_title">
                         <h1><field name="name"/></h1>
                         <field name="etiquetas_ids" widget="many2many_tags"/>
                     </div>
                     <group>
+                        <field name="state"/>
                         <field name="tipos_id"/>
                         <field name="codigo_postal"/>
                         <field name="fecha_disponibilidad"/>
@@ -51,6 +56,8 @@
                                 <field name="jardin"/>
                                 <field name="area_jardin"/>
                                 <field name="orientacion_jardin"/>
+                                <field name="mejor_oferta"/>
+                                <field name="area_total"/>
                             </group>
                         </page>
                         <page string="Ofertas">
