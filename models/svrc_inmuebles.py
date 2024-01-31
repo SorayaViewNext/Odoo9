@@ -1,5 +1,5 @@
 from odoo import fields, models
-from datetime import timedelta
+# from datetime import timedelta
 
 class svrc_inmuebles(models.Model):
     _name = "propiedades.inmuebles"
@@ -11,6 +11,7 @@ class svrc_inmuebles(models.Model):
     agente_id = fields.Many2one("res.users", string="Vendedor", default=lambda self: self.env.user)
     tipos_id = fields.Many2one("tipos.inmuebles", string="Tipo")
     etiquetas_ids = fields.Many2many("etiquetas.inmuebles", string="Tipo")
+    ofertas_ids = fields.One2many("ofertas.inmuebles", "inmueble_id", string="Ofertas")
     codigo_postal = fields.Char(string='Código postal')
     fecha_disponibilidad = fields.Date(string='Fecha de disponibilidad', copy=False, default=lambda self:fields.Date.today() + timedelta(days=90))
     precio_esperado = fields.Float(string='Precio esperado', required=True)

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="svrc_ofertas_inmuebles_view_tree" model="ir.ui.view">
+        <field name="name">ofertas.inmuebles.tree</field>
+        <field name="model">ofertas.inmuebles</field>
+        <field name="arch" type="xml">
+            <tree string="Listado">
+                <field name="precio"/>
+                <field name="comprador_id"/>
+                <field name="estado"/>
+            </tree>
+        </field>
+    </record>
+    <record id="svrc_ofertas_inmuebles_view_form" model="ir.ui.view">
+        <field name="name">ofertas.inmuebles.form</field>
+        <field name="model">ofertas.inmuebles</field>
+        <field name="arch" type="xml">
+            <form string="Registro">
+                <sheet>
+                    <group>
+                        <field name="precio"/>
+                        <field name="comprador_id"/>
+                        <field name="estado"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

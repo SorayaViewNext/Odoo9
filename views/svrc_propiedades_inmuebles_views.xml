@@ -53,6 +53,9 @@
                                 <field name="orientacion_jardin"/>
                             </group>
                         </page>
+                        <page string="Ofertas">
+                            <field name="ofertas_ids"/>
+                        </page>
                         <page string="Otra información">
                             <group>
                                 <field name="agente_id"/>
