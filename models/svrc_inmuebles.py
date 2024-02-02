@@ -1,11 +1,12 @@
-import api
 from odoo import api, fields, models
-from odoo.exceptions import UserError
-# from datetime import timedelta
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools.float_utils import float_is_zero, float_compare
+from datetime import timedelta
 
 class svrc_inmuebles(models.Model):
     _name = "propiedades.inmuebles"
     _description = "Propiedades Inmuebles"
+    _order = "id desc"
 
     name = fields.Char(string='Nombre', required = True)
     descripcion = fields.Text(string='Descripcion')
@@ -32,6 +33,22 @@ class svrc_inmuebles(models.Model):
     area_total = fields.Integer(compute="_calcular_area_total", search="_search_area_total", string="Área total (m2)", store=True)
     mejor_oferta = fields.Float(compute="_calcular_mejor_oferta", string='Mejor oferta')
 
+# restricciones:
+    _sql_constraints = [
+        ('check_precio_esperado', 'CHECK(precio_esperado > 0',
+         'El valor del PRECIO ESPERADO debe ser estrictamente positivo.')
+    ]
+
+    @api.constrains("precio_venta", "precio_esperado")
+    def _check_precio_venta(self):
+        for record in self:
+            if not float_is_zero(record.precio_venta, 2):
+                if float_compare(record.precio_venta, (record.precio_esperado * 0.9), 2) == -1:
+                    raise ValidationError(
+                        "EL PRECIO DE VENTA debe ser, al menos, del 90% del PRECIO ESPERADO. Puede reducir el PRECIO ESPERADO para aceptar esta oferta.")
+
+
+# cálculos:
     @api.depends("salon", "area_jardin")
     def _calcular_area_total(self):
         for record in self:
@@ -64,7 +81,7 @@ class svrc_inmuebles(models.Model):
             self.state = 'vendido'
 
     def action_cancelar_propiedad(self):
-        if self.state == 'cancelado':
+        if self.state == 'vendido':
             raise UserError("Las propiedades vendidas no pueden ser canceladas.")
         else:
             self.state = 'cancelado'

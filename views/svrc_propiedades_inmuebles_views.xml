@@ -4,20 +4,25 @@
         <field name="name">Listado de propiedades</field>
         <field name="res_model">propiedades.inmuebles</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_disponibles': True}</field>
     </record>
     <record id="svrc_propiedades_inmuebles_view_tree" model="ir.ui.view">
         <field name="name">propiedades.inmuebles.tree</field>
         <field name="model">propiedades.inmuebles</field>
         <field name="arch" type="xml">
-            <tree string="Listado">
+            <tree string="Listado" decoration-success="state=='oferta_recibida' or state=='oferta_aceptada'"
+                                    decoration-bf="state=='oferta_aceptada'"
+                                    decoration-muted="state=='vendido'"
+                                    decoration-danger="state=='cancelado'">
+                <field name="state" invisible="1"/>
                 <field name="name"/>
                 <field name="tipos_id"/>
                 <field name="codigo_postal"/>
                 <field name="dormitorios"/>
                 <field name="salon" string="Salón (m2)"/>
                 <field name="precio_esperado"/>
-                <field name="precio_venta"/>
-                <field name="fecha_disponibilidad"/>
+                <field name="precio_venta" optional="show"/>
+                <field name="fecha_disponibilidad" optional="hide"/>
             </tree>
         </field>
     </record>
@@ -27,17 +32,17 @@
         <field name="arch" type="xml">
             <form string="Registro">
                 <header>
-                    <button name="action_vender_propiedad" type="object" string="Vender"/>
-                    <button name="action_cancelar_propiedad" type="object" string="Cancelar"/>
+                    <button name="action_vender_propiedad" type="object" string="Vender" states="nuevo,oferta_recibida,oferta_aceptada"/>
+                    <button name="action_cancelar_propiedad" type="object" string="Cancelar" states="nuevo,oferta_recibida,oferta_aceptada"/>
+                    <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
                         <h1><field name="name"/></h1>
-                        <field name="etiquetas_ids" widget="many2many_tags"/>
+                        <field name="etiquetas_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
                     </div>
                     <group>
-                        <field name="state"/>
-                        <field name="tipos_id"/>
+                        <field name="tipos_id" options="{'no_create': True, 'no_create_edit': True}"/>
                         <field name="codigo_postal"/>
                         <field name="fecha_disponibilidad"/>
                     </group>
@@ -54,8 +59,8 @@
                                 <field name="fachadas"/>
                                 <field name="garaje"/>
                                 <field name="jardin"/>
-                                <field name="area_jardin"/>
-                                <field name="orientacion_jardin"/>
+                                <field name="area_jardin" attrs="{'invisible': [('jardin', '=', False)]}"/>
+                                <field name="orientacion_jardin" attrs="{'invisible': [('jardin', '=', False)]}"/>
                                 <field name="mejor_oferta"/>
                                 <field name="area_total"/>
                             </group>
@@ -84,10 +89,10 @@
                 <field name="codigo_postal"/>
                 <field name="precio_esperado"/>
                 <field name="dormitorios"/>
-                <field name="salon" string="(m2) del salón"/>
+                <field name="salon" string="(m2) del salón" filter_domain="[('salon', '>=', self)]"/>
                 <field name="fachadas"/>
                 <separator/>
-                <filter string="Disponibles" name="disponibles" domain="['|', ('state', '-', 'nuevo'), ('state', '-', 'oferta_recibida')]"/>
+                <filter string="Disponibles" name="disponibles" domain="['|', ('state', '=', 'nuevo'), ('state', '=', 'oferta_recibida')]"/>
                 <group expand="1" string="agrupar">
                     <filter string="Código postal" name="codigo_postal" context="{'group_by':'codigo_postal'}"/>
                 </group>

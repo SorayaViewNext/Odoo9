@@ -1,0 +1,9 @@
+http://localhost:8069/web?debug=1 - bicho - become superuser
+
+odoo9 -vie
+ejercicios silvia -vie
+mirar cosas jorge
+odoo10 -sab, dom
+ejercicio groovy -dom
+lista psi -sab
+

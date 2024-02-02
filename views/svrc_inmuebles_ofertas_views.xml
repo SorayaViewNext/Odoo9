@@ -4,13 +4,13 @@
         <field name="name">ofertas.inmuebles.tree</field>
         <field name="model">ofertas.inmuebles</field>
         <field name="arch" type="xml">
-            <tree string="Listado">
+            <tree string="Listado" editable="bottom">
                 <field name="precio"/>
                 <field name="comprador_id"/>
                 <field name="validez"/>
                 <field name="fecha_tope"/>
-                <button name="action_aceptar_oferta" icon="fa-check" type="object"/>
-                <button name="action_rechazar_oferta" icon="fa-times" type="object"/>
+                <button name="action_aceptar_oferta" icon="fa-check" type="object" attrs="{'invisible': [('estado', 'in', ('aceptada', 'rechazada'))]}"/>
+                <button name="action_rechazar_oferta" icon="fa-times" type="object" attrs="{'invisible': [('estado', 'in', ('aceptada', 'rechazada'))]}"/>
                 <field name="estado"/>
             </tree>
         </field>

@@ -9,8 +9,8 @@
         <field name="name">etiquetas.inmuebles.tree</field>
         <field name="model">etiquetas.inmuebles</field>
         <field name="arch" type="xml">
-            <tree string="Listado">
-                <field name="nombre"/>
+            <tree string="Listado" editable="top">
+                <field name="name"/>
             </tree>
         </field>
     </record>
@@ -21,7 +21,7 @@
             <form string="Registro">
                 <sheet>
                     <group>
-                        <field name="nombre"/>
+                        <field name="name"/>
                     </group>
                 </sheet>
             </form>
