@@ -1,0 +1,32 @@
+version: '3.1'
+services:
+  web:
+    container_name: odoomia
+    image: odoo:15.0
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    volumes:
+      - "./odoo/odoo-web-data:/var/lib/odoo"
+      - "./odoo/addons:/mnt/extra-addons"
+    networks:
+      - host
+      
+  db:
+    container_name: dbmia
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./odoo/db:/var/lib/postgresql/data"
+    networks:
+      - host
+
+networks:
+  host:
