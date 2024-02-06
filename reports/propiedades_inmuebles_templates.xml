@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Este va sin prefijo porque aunque es un XML, no es una acción, vista ni menú-->
+<odoo>
+    <template id="ofertas_propiedades_report_template">
+        <t t-foreach="docs" t-as="propiedad">
+            <t t-call="web-html_container">
+                <t t-call="web-external_layout">
+                    <div class="page">
+                        <h2>
+                            <span t-field="propiedad.name"/>
+                        </h2>
+                        <div>
+                            <strong>Vendedor: </strong>
+                        </div>
+                        <div>
+                            <strong>Precio esperado: </strong>
+                            <stpan t-field="propiedad.state"/>
+                        </div>
+                        <t t-set="ofertas" t-value="propiedad.mapped('ofertas_ids')"/>
+                        <t t-if="ofertas">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Precio</th>
+                                        <th>Cliente</th>
+                                        <th>Validez (días)</th>
+                                        <th>Fecha tope</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="ofertas" t-as="oferta">
+                                        <td>
+                                            <span t-field="oferta.precio"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="oferta.comprador_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="oferta.fecha_tope"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="oferta.estado"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                        <t t-else="">
+                            <br/><br/><br/>
+                            <div>
+                                <strong>No se muestra la tabla de ofertas porque esta propiedad todavía no tiene ninguna oferta asignada.</strong>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="footer">
+                        <small>Informe sobre las ofertas de una propiedad inmueble.</small>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

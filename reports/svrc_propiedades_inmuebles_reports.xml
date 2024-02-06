@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Aunque este archivo está fuera de la carpeta de views, he entendido que
+también requiere las iniciales al tratarse también de un archivo xml de una acción-->
+<odoo>
+    <record id="svrc_ofertas_propiedades_report" model="ir.actions.report">
+        <field name="name">Ofertas de propiedades</field>
+        <field name="model">propiedades.inmuebles</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">propiedades.ofertas_propiedades_report_template</field>
+        <field name="report_file">propiedades.ofertas_propiedades_report_template</field>
+        <field name="print_report_name">'Informe de ofertas de propiedades'</field>
+        <field name="paperformat_id" ref="formato_papel_ofertas_propiedades_report"/>
+        <field name="binding_model_id" ref="model_propiedades_inmuebles"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
+
